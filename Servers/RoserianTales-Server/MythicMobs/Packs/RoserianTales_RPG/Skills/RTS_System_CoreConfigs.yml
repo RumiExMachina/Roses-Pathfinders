@@ -1,0 +1,96 @@
+#-----------------------------------------------------------------#
+#                                                                 #
+#                                                                 #
+#                                                                 #
+#-----------------------------------------------------------------#
+
+#-----------------------------------------------------------------#
+# Owner & Parent Mechanics                                        #
+#-----------------------------------------------------------------#
+
+RTS_SYSTEM_SETOWNER:
+  Skills:
+  - setOwner{}
+
+RTS_SYSTEM_OFFOWNER:
+  Conditions:
+  - ownerisonline{} false
+  Skills:
+  - skill{s=RTS_REMOVE_MECH}  @Owner
+  - remove                    @Self
+  - remove                    @Parent
+
+RTS_SYSTEM_OFFPARENT:
+  Conditions:
+  - hasparent{} false
+  Skills:
+  - remove @Self
+
+#-----------------------------------------------------------------#
+#                                                                 #
+#                                                                 #
+#                                                                 #
+#-----------------------------------------------------------------#
+
+#-----------------------------------------------------------------#
+# Remove / Death | Hero and Idol Units                            #
+#-----------------------------------------------------------------#
+
+RTS_REMOVE_MECH:
+  Skills:
+  - setvariable{var=target.UNIT_STATUS;value=0;type=INTEGER;duration=20}
+  - message{msg="&8<&lb>&cRosesfield&8<&rb> &fSeu &cHeroi &frecuou do campo de batalha."} 
+
+RTS_REMOVE_IDOL_DISTANCE:
+  TargetConditions:
+  - playernotwithin{d=20} true
+  - owner true
+  Skills:
+  - skill{s=RTS_REMOVE_MECH}  @Owner
+  - remove                    @Self
+
+RTS_REMOVE_HERO_DEATH:
+  Skills:
+  - skill{s=RTS_REMOVE_MECH}  @Owner
+  - remove                    @Parent
+
+# Mechanic triggered by: "RTS_REMOVE_IDOL" signal.
+
+RTS_REMOVE_IDOL_ORDER:
+  TriggerConditions:
+  - owner true
+  Skills:
+  - skill{s=RTS_REMOVE_MECH} @Owner
+  - remove @Self
+
+# Mechanic for removing duplicates of Mobs. DO NOT DISABLE!
+# Mechanic triggered by: "RTS_REMOVE_GHOST" signal.
+
+RTS_REMOVE_GHOST_DOUBLE: 
+  TriggerConditions:
+  - owner true
+  Skills:
+  - remove @Self
+  - remove @Parent
+
+#-----------------------------------------------------------------#
+#                                                                 #
+#                                                                 #
+#                                                                 #
+#-----------------------------------------------------------------#
+
+#-----------------------------------------------------------------#
+# Startup Protocol for Hero & Idol Units.                         #
+#-----------------------------------------------------------------#
+
+RTS_STARTUP_OWNERNAME_GET:
+  Skills:
+  - setvariable{var=caster.UNIT_OWNER_NAME;type=STRING;value="<target.name>"} @Owner
+
+RTS_STARTUP_OWNERNAME_SET:
+  Skills:
+  - setname{name="&a&l<caster.var.UNIT_OWNER_NAME>"} @Self
+
+RTS_STARTUP_TAG_SET:
+  Skills:
+  - setvariable{var=caster.UNIT_OWNER_TAG;type=STRING;value="<target.uuid>"} @Owner

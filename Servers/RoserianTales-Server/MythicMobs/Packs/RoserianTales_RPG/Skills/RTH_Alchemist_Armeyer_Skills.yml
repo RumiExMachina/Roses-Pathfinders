@@ -1,0 +1,18 @@
+RTH_SUMMON_ALCHEMIST_ARMEYER_UNIT:
+  Skills:
+  - summon{type=RTH_UNIT_ALCHEMIST_ARMEYER}
+  
+RTH_SUMMON_ALCHEMIST_ARMEYER_IDOL:
+  Cooldown: 10
+  Conditions:
+  - region{r=rt_001_rosesfield_village_spawn} true
+  - variableisset target.UNIT_STATUS false
+  Skills:
+  - signal{s=RTS_REMOVE_GHOST} @EIR{r=100}
+  - summon{type=RTH_IDOL_ALCHEMIST_ARMEYER}
+  - setvariable{var=target.UNIT_STATUS;value=1;type=INTEGER}
+
+RTH_ALCHEMIST_ARMEYER_SKIN:
+  Skills:
+  - delay 10
+  - disguise{d=Alchemist_Armeyer} @Self

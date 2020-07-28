@@ -1,0 +1,12 @@
+RTW_WAND_ALCHEMIST_ARMEYER:
+  Id: GOLDEN_SWORD
+  Display: '&8[&6Armeyer&8]'
+  Lore:
+  - '&8[&8]'
+  Options:
+    PreventDropping: true
+    CancelDamage: true
+    KeepOnDeath: true
+    Unbreakable: true
+  Skills:
+  - skill{s=RTH_SUMMON_ALCHEMIST_ARMEYER_IDOL} @Self ~onUse

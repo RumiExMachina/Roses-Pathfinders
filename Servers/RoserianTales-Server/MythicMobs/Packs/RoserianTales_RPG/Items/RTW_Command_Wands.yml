@@ -1,0 +1,64 @@
+RTW_COMMAND_WAND:
+  Id: DIAMOND_SWORD
+  Display: '&8[&9&lCursor&8]'
+  Lore:
+  - '&8[&8]'
+  Attributes:
+    MainHand:
+      Damage: -10
+  Options:
+    PreventDropping: true
+    CancelDamage: true
+    KeepOnDeath: true
+    Unbreakable: true
+  Skills:
+  - skill{s=RTS_ORDERS_MOVE_TRIGGER} ~onUse
+  #- skill{s=RT_ATTACK_MELEE}  @Self ~onSwing
+
+RTW_RETREAT_WAND:
+  Id: GOLDEN_AXE
+  Display: '&8[&6&lRecuar&8]'
+  Lore:
+  - '&8[&8]'
+  Attributes:
+    MainHand:
+      Damage: -10
+  Options:
+    PreventDropping: true
+    CancelDamage: true
+    KeepOnDeath: true
+    Unbreakable: true
+  Skills:
+  - skill{s=RTS_ORDERS_REMOVE_IDOL} ~onUse
+
+RTW_MELEE_WAND:
+  Id: IRON_SWORD
+  Display: '&8[&c&lAtacar CaC&8]'
+  Lore:
+  - '&8[&8]'
+  Attributes:
+    MainHand:
+      Damage: -10
+  Options:
+    PreventDropping: true
+    CancelDamage: true
+    KeepOnDeath: true
+    Unbreakable: true
+  Skills:
+  - skill{s=RTS_ORDERS_MELEE_TRIGGER} @Trigger ~onInteract
+
+RTW_RANGED_WAND:
+  Id: NETHERITE_SWORD
+  Display: '&8[&c&lAtacar AD&8]'
+  Lore:
+  - '&8[&8]'
+  Attributes:
+    MainHand:
+      Damage: -10
+  Options:
+    PreventDropping: true
+    CancelDamage: true
+    KeepOnDeath: true
+    Unbreakable: true
+  Skills:
+  - skill{s=RTS_ORDERS_RANGED_TRIGGER} @Trigger ~onInteract

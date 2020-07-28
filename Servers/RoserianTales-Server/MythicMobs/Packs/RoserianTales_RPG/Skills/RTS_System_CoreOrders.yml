@@ -1,0 +1,97 @@
+#-----------------------------------------------------------------#
+#                                                                 #
+#                                                                 #
+#                                                                 #
+#-----------------------------------------------------------------#
+
+#-----------------------------------------------------------------#
+# Movement and Remove Orders                                    #
+#-----------------------------------------------------------------#
+
+RTS_ORDERS_MOVE_TRIGGER:
+  Skills:
+  - signal{s=RTS_ORDERS_MOVE} @EIR{r=25} 
+
+RTS_ORDERS_MOVE_ACTION:
+  TriggerConditions:
+  - owner true
+  Skills:
+  - teleport @Owner
+
+RTS_ORDERS_REMOVE_IDOL:
+  Cooldown: 5
+  Skills:
+  - signal{s=RTS_REMOVE_IDOL} @EIR{r=50}
+
+#-----------------------------------------------------------------#
+#                                                                 #
+#                                                                 #
+#                                                                 #
+#-----------------------------------------------------------------#
+
+#-----------------------------------------------------------------#
+# Combat (Melee) Orders                                           #
+#-----------------------------------------------------------------#
+
+RTS_ORDERS_MELEE_TRIGGER:
+  Cooldown: 5
+  TargetConditions:
+  - mythicmobtype{types=RTE_MOB_DUMMY} true
+  Skills:
+  #- message{msg="TEST 1 PASS"} @Self
+  #- setvariable{var=target.MELEE_ACTION;value="<caster.name>";type=STRING}
+  - signal{s=RTS_MELEE_TARGET} @EIR{r=50}
+
+RTS_ORDERS_MELEE_TARGET:
+  TriggerConditions:
+  - owner{} true
+  Skills:
+  - setvariable{var=caster.MELEE_TARGET;value="<caster.uuid>";type=STRING} @Self
+  #- message{msg="THE NAME IS <caster.var.MELEE_TARGET>"} @Trigger
+  - signal{s=RTS_MELEE_LOCK} @EIR{r=10}
+
+RTS_ORDERS_MELEE_LOCK:
+  TargetConditions:
+  - stringequals{val1="<target.var.MELEE_TARGET>";val2="<target.uuid>"} true
+  Skills:
+  #- message{msg="TEST 2 PASS"} @PIR{r=50}
+  #- message{msg="THE NAME IS <caster.var.MELEE_ACTION>"} @PIR{r=50}
+  - damage{a=0} @Trigger
+
+#-----------------------------------------------------------------#
+#                                                                 #
+#                                                                 #
+#                                                                 #
+#-----------------------------------------------------------------#
+
+#-----------------------------------------------------------------#
+# Combat (Ranged) Orders                                          #
+#-----------------------------------------------------------------#
+
+RTS_ORDERS_RANGED_TRIGGER:
+  Cooldown: 5
+  TargetConditions:
+  - mythicmobtype{types=RTE_MOB_DUMMY} true
+  Skills:
+  - message{msg="TEST 1 PASS"} @Self
+  - signal{s=RTS_RANGED_TARGET} @EIR{r=50}
+
+RTS_ORDERS_RANGED_TARGET:
+  TriggerConditions:
+  - owner{} true
+  Skills:
+  - message{msg="TEST 2 PASS"} @Owner
+  - setvariable{var=caster.RANGED_TARGET;value="<caster.uuid>";type=STRING} @Self
+  - signal{s=RTS_RANGED_LOCK} @EIR{r=25}
+
+RTS_ORDERS_RANGED_LOCK:
+  TargetConditions:
+  - stringequals{val1="<target.var.RANGED_TARGET>";val2="<target.uuid>"} true
+  Skills:
+  - message{msg="TEST 3 PASS"} @PIR{r=25}
+  - signal{s=RTS_RANGED_EXECUTE} @Trigger
+
+RTS_ORDERS_RANGED_EXECUTE:
+  Skills:
+  - message{msg="TEST 4 PASS"} @Owner
+  - shoot{type=ARROW;velocity=5;damage=10;repeat=2;repeatInterval=40} @Trigger

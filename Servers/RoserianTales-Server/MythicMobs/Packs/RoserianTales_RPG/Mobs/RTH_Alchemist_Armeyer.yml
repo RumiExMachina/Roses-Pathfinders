@@ -1,0 +1,78 @@
+#-----------------------------------------------------------------#
+#                                                                 #
+#                                                                 #
+#                                                                 #
+#-----------------------------------------------------------------#
+
+RTH_IDOL_ALCHEMIST_ARMEYER:
+  Type: ARMOR_STAND
+  Faction: HEROES
+  Disguise: IDOL_001
+  Options:
+    AlwaysShowName: true
+    Invincible: true
+    Invisible: false
+    Despawn: false
+  Skills:
+#-----------------------------------------------------------------#
+  - skill{s=RTS_REMOVE_IDOL_DISTANCE} @Owner ~onTimer:60
+  - skill{s=RTS_REMOVE_IDOL_ORDER}    @Self ~onSignal:RTS_REMOVE_IDOL
+#-----------------------------------------------------------------#
+  - skill{s=RTS_SYSTEM_SETOWNER} @NearestPlayer{r=2} ~onSpawn
+ #- skill{s=RTS_SYSTEM_OFFOWNER} ~onTimer:100
+
+  - skill{s=RTS_STARTUP_OWNERNAME_GET} @Owner ~onSpawn
+  - skill{s=RTS_STARTUP_OWNERNAME_SET} @Owner ~onSpawn
+#-----------------------------------------------------------------#
+  - skill{s=RTS_ORDERS_MOVE_ACTION}             @Self ~onSignal:RTS_ORDERS_MOVE
+  - skill{s=RTH_SUMMON_ALCHEMIST_ARMEYER_UNIT}  @Self ~onSpawn
+#-----------------------------------------------------------------#
+
+
+
+
+#-----------------------------------------------------------------#
+#                                                                 #
+#                                                                 #
+#                                                                 #
+#-----------------------------------------------------------------#
+
+RTH_UNIT_ALCHEMIST_ARMEYER:
+  Type: PILLAGER
+  Health: 30
+  Damage: 6
+  Faction: HEROES
+  Equipment:
+  - IRON_SWORD HAND
+  Options:
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    Despawn: false
+    Silent: true
+    MovementSpeed: 0.3
+  AIGoalSelectors:
+  - 0 clear
+  - 1 meleeattack 
+  - 2 gotoparent
+  - 3 float
+  AITargetSelectors:
+  - 0 clear
+  - 1 damager
+  Skills:
+#-----------------------------------------------------------------#
+  - skill{s=RTS_SYSTEM_OFFPARENT} ~onTimer:60
+  - skill{s=RTS_SYSTEM_SETOWNER}  @NearestPlayer{r=2} ~onSpawn
+  - skill{s=RTS_SYSTEM_OFFOWNER}  ~onTimer:60
+
+  - skill{s=RTS_STARTUP_OWNERNAME_GET} @Owner ~onSpawn
+  - skill{s=RTS_STARTUP_OWNERNAME_SET} @Owner ~onSpawn
+  - skill{s=RTS_STARTUP_TAG_SET}       @Owner  ~onSpawn
+#-----------------------------------------------------------------#
+  - skill{s=RTS_REMOVE_HERO_DEATH}    @Owner ~onDeath
+  - skill{s=RTS_REMOVE_GHOST_DOUBLE}  @Self ~onSignal:RTS_REMOVE_GHOST
+#-----------------------------------------------------------------#
+  - skill{s=RTH_ALCHEMIST_ARMEYER_SKIN} @Self ~onSpawn
+#-----------------------------------------------------------------#
+  - skill{s=RTS_ORDERS_MELEE_TARGET}    @Self ~onSignal:RTS_MELEE_TARGET
+  - skill{s=RTS_ORDERS_RANGED_TARGET}   @Self ~onSignal:RTS_RANGED_TARGET
+  - skill{s=RTS_ORDERS_RANGED_EXECUTE}  @Trigger ~onSignal:RTS_RANGED_EXECUTE

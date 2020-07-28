@@ -1,0 +1,11 @@
+RTE_MOB_DUMMY:
+  Type: HUSK
+  Display: '&8[&9&lTest Dummy&8]'
+  Faction: DEBUG
+  Health: 1000
+  Options:
+    AlwaysShowName: true
+    NoAI: true
+  Skills:
+  - skill{s=RTS_ORDERS_MELEE_LOCK}  @Trigger ~onSignal:RTS_MELEE_LOCK
+  - skill{s=RTS_ORDERS_RANGED_LOCK} @Trigger ~onSignal:RTS_RANGED_LOCK
